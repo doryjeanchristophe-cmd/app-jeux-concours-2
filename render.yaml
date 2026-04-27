@@ -1,0 +1,34 @@
+services:
+  # Backend API
+  - type: web
+    name: gagnezfacile-api
+    runtime: node
+    rootDir: app-concours/backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+
+  # Scraper (cron job automatique)
+  - type: cron
+    name: gagnezfacile-scraper
+    runtime: node
+    rootDir: scraper-concours
+    buildCommand: npm install
+    schedule: "0 6 * * *"
+    startCommand: node index.js
+
+  # Frontend React
+  - type: web
+    name: gagnezfacile-frontend
+    runtime: static
+    rootDir: app-concours/frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
