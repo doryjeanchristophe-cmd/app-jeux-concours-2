@@ -8,7 +8,7 @@ import ConcoursModal from "./components/ConcoursModal";
 import Footer from "./components/Footer";
 import "./App.css";
 
-const API = "http://localhost:3001/api";
+const API = "";
 
 export default function App() {
   const [concours, setConcours] = useState([]);
